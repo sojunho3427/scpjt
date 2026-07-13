@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맘스터치 (Mom's Touch) - 압도적 두께, 진짜 치킨버거의 시작</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pretendard Body Font & Black Han Sans / SUIT Headings alternative -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for visual flair -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepOrange: {
+                            50: '#fff3eb',
+                            100: '#ffe5d4',
+                            500: '#FF6B00', /* Mom's Touch Theme Color */
+                            600: '#E56000',
+                            700: '#CC5500',
+                            800: '#B24B00',
+                            900: '#994000',
+                        },
+                        warmYellow: {
+                            400: '#FFCA28',
+                            500: '#FFB800', /* Secondary Theme Color */
+                            600: '#E5A500',
+                        },
+                        darkGray: '#121212',
+                        charcoal: '#1A1A1A',
+                        cardBg: '#222222'
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                        title: ['Black Han Sans', 'sans-serif'], /* For thick punchy headings resembling thick patties */
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 2.5s infinite',
+                        'float-steam': 'floatSteam 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        floatSteam: {
+                            '0%, 100%': { transform: 'translateY(0px) scale(1)', opacity: '0.4' },
+                            '50%': { transform: 'translateY(-8px) scale(1.05)', opacity: '0.8' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions */
+        .transition-all-300 {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Custom Scrollbar styled dynamically with Mom's Touch colors */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B00;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFB800;
+        }
+        /* Hide scrollbars for slick category menus */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-darkGray text-white font-sans overflow-x-hidden antialiased">
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent py-4 px-6 md:px-12 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+            <span class="text-deepOrange-500 font-title text-2xl md:text-3xl tracking-wider">MOM'S</span>
+            <span class="bg-warmYellow-500 text-darkGray px-2.5 py-0.5 rounded font-title text-xl md:text-2xl transform rotate-2">TOUCH</span>
+        </a>
+        
+        <!-- Desktop Menu Navigations -->
+        <div class="hidden md:flex items-center space-x-8 font-semibold text-neutral-300">
+            <a href="#brand-intro" class="hover:text-deepOrange-500 transition-all-300 text-sm">브랜드 가치</a>
+            <a href="#strength-cards" class="hover:text-deepOrange-500 transition-all-300 text-sm">매력 포인트</a>
+            <a href="#menu-showcase" class="hover:text-deepOrange-500 transition-all-300 text-sm">베스트 메뉴</a>
+            <a href="#thickness-simulator" class="hover:text-deepOrange-500 transition-all-300 text-sm">두께 시뮬레이션</a>
+            <a href="#store-finder" class="hover:text-deepOrange-500 transition-all-300 text-sm">가까운 매장</a>
+        </div>
+
+        <!-- Right Side CTA / Shopping Cart -->
+        <div class="flex items-center space-x-4">
+            <button onclick="toggleCartModal()" class="relative bg-charcoal p-3 rounded-full hover:bg-deepOrange-500 hover:text-white transition-all-300 border border-neutral-800">
+                <i class="fa-solid fa-basket-shopping text-lg"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-deepOrange-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-darkGray hidden">0</span>
+            </button>
+            <a href="#store-finder" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white px-5 py-2.5 rounded-full font-bold text-sm hidden sm:block shadow-lg shadow-deepOrange-500/20 transition-all-300 transform hover:-translate-y-0.5">
+                지금 주문하기 <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white hover:text-deepOrange-500 focus:outline-none">
+                <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-darkGray/98 z-40 flex flex-col justify-center items-center space-y-8 text-2xl font-title tracking-wider transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <a href="#brand-intro" onclick="toggleMobileMenu()" class="hover:text-deepOrange-500 transition-all-300">브랜드 가치</a>
+        <a href="#strength-cards" onclick="toggleMobileMenu()" class="hover:text-deepOrange-500 transition-all-300">매력 포인트</a>
+        <a href="#menu-showcase" onclick="toggleMobileMenu()" class="hover:text-deepOrange-500 transition-all-300">베스트 메뉴</a>
+        <a href="#thickness-simulator" onclick="toggleMobileMenu()" class="hover:text-deepOrange-500 transition-all-300">두께 시뮬레이션</a>
+        <a href="#store-finder" onclick="toggleMobileMenu()" class="hover:text-deepOrange-500 transition-all-300">가까운 매장</a>
+        <a href="#store-finder" onclick="toggleMobileMenu()" class="bg-deepOrange-500 text-white text-lg px-8 py-3 rounded-full font-bold shadow-lg shadow-deepOrange-500/30">
+            지금 매장 주문하기
+        </a>
+    </div>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-neutral-800 via-darkGray to-black">
+        <!-- Giant Transparent Brand Text overlay in background -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
+            <h1 class="font-outfit text-[22vw] font-black text-white tracking-tighter select-none">MOMS TOUCH</h1>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
+            <!-- Left Copywriting Hero Block -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 bg-charcoal/80 border border-neutral-700 px-4 py-2 rounded-full text-warmYellow-500 text-xs md:text-sm font-bold tracking-wider">
+                    <span class="flex h-2.5 w-2.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-deepOrange-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-deepOrange-500"></span>
+                    </span>
+                    <span>1030 취향 저격! 압도적인 맛의 대명사</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-6xl xl:text-7xl font-title leading-tight tracking-tight">
+                    입안 가득 차오르는<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-deepOrange-500 via-warmYellow-500 to-deepOrange-600">
+                        압도적 두께,
+                    </span><br>
+                    진짜 치킨버거의 시작.
+                </h2>
+                
+                <p class="text-neutral-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    타협하지 않는 압도적 볼륨감의 촉촉한 통닭다리살 패티, 입속 가득 풍부한 육즙의 깊이를 만나보세요. 맘스터치는 언제나 신선한 After-Order 조리 원칙을 준수합니다.
+                </p>
+
+                <!-- Interactive CTA Buttons -->
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 pt-4">
+                    <a href="#menu-showcase" class="w-full sm:w-auto bg-gradient-to-r from-deepOrange-500 to-deepOrange-600 hover:from-deepOrange-600 hover:to-deepOrange-700 text-white font-bold px-8 py-4 rounded-full text-center shadow-lg shadow-deepOrange-500/30 hover:shadow-deepOrange-500/50 transition-all duration-300 transform hover:-translate-y-1">
+                        <i class="fa-solid fa-list-ul mr-2"></i> 메뉴 쇼케이스 구경
+                    </a>
+                    <a href="#thickness-simulator" class="w-full sm:w-auto bg-charcoal hover:bg-neutral-800 text-warmYellow-500 font-bold px-8 py-4 rounded-full text-center border border-neutral-800 hover:border-warmYellow-500/30 transition-all duration-300 transform hover:-translate-y-1">
+                        직접 패티 두께 늘려보기 <i class="fa-solid fa-sliders ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Stats Badges -->
+                <div class="grid grid-cols-3 gap-4 pt-10 border-t border-neutral-800 max-w-md mx-auto lg:mx-0">
+                    <div>
+                        <div class="text-2xl md:text-3xl font-bold font-outfit text-white">100%</div>
+                        <div class="text-xs text-neutral-500 mt-1">통다리살 신선육</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl md:text-3xl font-bold font-outfit text-deepOrange-500">After-O</div>
+                        <div class="text-xs text-neutral-500 mt-1">주문 즉시 조리 원칙</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl md:text-3xl font-bold font-outfit text-warmYellow-500">BEST</div>
+                        <div class="text-xs text-neutral-500 mt-1">싸이버거 오리지널</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive SVG Burger Stack Component -->
+            <div class="lg:col-span-5 flex justify-center relative py-12 lg:py-0">
+                <!-- Soft Glows -->
+                <div class="absolute w-72 h-72 md:w-96 md:h-96 bg-deepOrange-500/20 rounded-full blur-3xl -top-10 left-1/2 transform -translate-x-1/2 -z-10 animate-pulse-slow"></div>
+
+                <!-- Floating/Bouncing Delicious Psyburger SVG -->
+                <div class="relative w-72 h-80 md:w-96 md:h-auto animate-bounce-slow flex flex-col justify-center items-center">
+                    <svg viewBox="0 0 400 450" class="w-full h-auto drop-shadow-[0_35px_35px_rgba(255,107,0,0.25)]">
+                        <!-- Top sesame Bun -->
+                        <path d="M70,120 Q200,30 330,120 L310,150 Q200,165 90,150 Z" fill="#D27D2D" />
+                        <!-- Sesame Seeds -->
+                        <ellipse cx="140" cy="80" rx="3" ry="5" fill="#FFEAA7" transform="rotate(25 140 80)"/>
+                        <ellipse cx="200" cy="70" rx="3" ry="5" fill="#FFEAA7" transform="rotate(-10 200 70)"/>
+                        <ellipse cx="260" cy="90" rx="3" ry="5" fill="#FFEAA7" transform="rotate(15 260 90)"/>
+                        <ellipse cx="170" cy="105" rx="3" ry="5" fill="#FFEAA7" transform="rotate(35 170 105)"/>
+                        <ellipse cx="230" cy="100" rx="3" ry="5" fill="#FFEAA7" transform="rotate(-20 230 100)"/>
+
+                        <!-- Smooth Special Mayo White Sauce Layer -->
+                        <path d="M85,150 C120,140 140,165 170,165 C200,165 220,145 250,145 C280,145 295,160 315,150 L310,165 C290,175 260,180 230,175 C200,170 170,185 130,180 C100,175 85,165 85,165 Z" fill="#FBF9F1" />
+
+                        <!-- Onions / Pickles -->
+                        <path d="M100,185 Q150,180 200,185 Q250,180 300,185 L300,195 Q250,190 200,195 Q150,190 100,195 Z" fill="#6B8E23" />
+
+                        <!-- Thick crispy Whole Thigh Chicken Patty -->
+                        <path d="M55,200 C80,180 120,215 175,200 C230,185 285,220 345,195 C355,225 335,260 305,265 C245,275 185,245 135,270 C85,265 45,235 55,200 Z" fill="#80471C" />
+                        <!-- Golden highlight lines representing crispy outer crumbs -->
+                        <path d="M65,210 Q120,192 170,215 Q220,190 275,220 Q315,205 335,215" stroke="#FF9F1C" stroke-width="6" fill="none" stroke-linecap="round"/>
+                        <path d="M85,240 Q150,235 190,255 Q240,225 290,250" stroke="#FFB800" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+                        <!-- Vibrant Crunchy Lettuce -->
+                        <path d="M50,265 C70,255 100,285 130,265 C160,245 190,285 220,265 C250,245 280,285 310,265 C340,245 360,275 350,285 C330,295 300,280 270,295 C240,310 210,280 180,295 C150,310 110,285 80,295 C60,285 50,275 50,265 Z" fill="#2E7D32" />
+                        <path d="M55,270 C75,265 95,290 125,275 C155,260 185,290 215,275 C245,260 275,290 305,275 C335,260 345,280 345,280" stroke="#4CAF50" stroke-width="3" fill="none" />
+
+                        <!-- Bottom Toast Bun -->
+                        <path d="M80,300 Q200,280 320,300 L310,345 Q200,365 90,345 Z" fill="#C57022" />
+                    </svg>
+
+                    <!-- Highlight Badges orbiting the main burger visual -->
+                    <div class="absolute -bottom-6 -right-2 bg-gradient-to-tr from-deepOrange-600 to-warmYellow-500 p-4 rounded-2xl shadow-xl border-2 border-darkGray text-center transform rotate-6 hover:rotate-0 transition-all-300">
+                        <span class="block text-xs font-bold text-darkGray tracking-wide uppercase">SIGNATURE</span>
+                        <span class="block font-title text-xl text-white">싸이버거 오리지널</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="brand-intro" class="py-24 bg-charcoal relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-deepOrange-500 font-bold tracking-wider text-sm uppercase">BRAND VALUE & PROMISE</span>
+                <h3 class="text-3xl md:text-5xl font-title mt-2 mb-4">패스트푸드가 아닌 슬로우 푸드의 철학</h3>
+                <p class="text-neutral-400">
+                    미리 만들어 온열기에 방치하지 않습니다. 맘스터치는 주문 버튼을 누르는 순간부터 정성스러운 조리가 가동되어 가장 뜨겁고 바삭한 상태의 행복을 상에 올립니다.
+                </p>
+            </div>
+
+            <!-- Dynamic Timed Interactive Cooking Process Board -->
+            <div class="bg-darkGray/60 border border-neutral-800 p-8 md:p-12 rounded-3xl">
+                <div class="text-center mb-10">
+                    <span class="bg-deepOrange-500/10 text-deepOrange-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">AFTER ORDER COOKING TIMELINE</span>
+                    <h4 class="text-2xl md:text-3xl font-title mt-4">싸이버거가 완성되는 황금 레시피 4단계</h4>
+                    <p class="text-xs text-neutral-500 mt-2">단계 버튼을 선택하여 실시간 수제 버거 튀김 여정을 감상해보세요.</p>
+                </div>
+
+                <!-- Stage Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+                    <button onclick="changeProcessStep(1)" id="timeline-btn-1" class="timeline-btn px-4 py-4 rounded-2xl bg-deepOrange-500 text-white font-bold transition-all-300 border border-deepOrange-500">
+                        <span class="block text-[10px] opacity-80 uppercase font-mono">Stage 01</span>
+                        <span class="text-sm">즉시 주문 접수</span>
+                    </button>
+                    <button onclick="changeProcessStep(2)" id="timeline-btn-2" class="timeline-btn px-4 py-4 rounded-2xl bg-charcoal text-neutral-400 hover:text-white font-bold transition-all-300 border border-neutral-800 hover:border-neutral-700">
+                        <span class="block text-[10px] opacity-80 uppercase font-mono">Stage 02</span>
+                        <span class="text-sm">통다리살 염지</span>
+                    </button>
+                    <button onclick="changeProcessStep(3)" id="timeline-btn-3" class="timeline-btn px-4 py-4 rounded-2xl bg-charcoal text-neutral-400 hover:text-white font-bold transition-all-300 border border-neutral-800 hover:border-neutral-700">
+                        <span class="block text-[10px] opacity-80 uppercase font-mono">Stage 03</span>
+                        <span class="text-sm">딥 프라잉 공정</span>
+                    </button>
+                    <button onclick="changeProcessStep(4)" id="timeline-btn-4" class="timeline-btn px-4 py-4 rounded-2xl bg-charcoal text-neutral-400 hover:text-white font-bold transition-all-300 border border-neutral-800 hover:border-neutral-700">
+                        <span class="block text-[10px] opacity-80 uppercase font-mono">Stage 04</span>
+                        <span class="text-sm">골든 포장 완료</span>
+                    </button>
+                </div>
+
+                <!-- Content Card Wrapper -->
+                <div class="max-w-4xl mx-auto bg-charcoal rounded-3xl p-6 md:p-8 border border-neutral-800/80 relative overflow-hidden">
+                    
+                    <!-- Step 1 Content -->
+                    <div id="timeline-desc-1" class="timeline-content block space-y-6 md:space-y-0 md:flex md:items-center md:space-x-8">
+                        <div class="md:w-1/2 flex justify-center">
+                            <div class="bg-darkGray p-6 rounded-2xl border border-neutral-800 w-full max-w-xs text-center relative">
+                                <i class="fa-solid fa-receipt text-5xl text-deepOrange-500 animate-pulse mb-4"></i>
+                                <div class="text-sm font-semibold text-neutral-400">After-Order 영수증 발행</div>
+                                <div class="text-lg font-bold text-white mt-1">실시간 주방 디스플레이 전송</div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 space-y-4">
+                            <h5 class="text-2xl font-title text-deepOrange-500">01. 주문과 동시에 조리 사이렌</h5>
+                            <p class="text-neutral-300 leading-relaxed text-sm">
+                                맘스터치는 주문이 들어와 영수증이 나오는 즉시 주방 내부의 조리 지시 디스플레이가 켜집니다. 타협 없는 완벽한 한 끼를 전하기 위한 첫 번째 타이머 카운트다운의 시작점입니다.
+                            </p>
+                            <ul class="space-y-2 text-xs text-neutral-400">
+                                <li><i class="fa-solid fa-circle-check text-deepOrange-500 mr-2"></i> 대기 보관용 기성품 재가열 행위 절대 배제</li>
+                                <li><i class="fa-solid fa-circle-check text-deepOrange-500 mr-2"></i> 정성 담긴 물결 무늬 크러스트 생성 약속</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 Content -->
+                    <div id="timeline-desc-2" class="timeline-content hidden space-y-6 md:space-y-0 md:flex md:items-center md:space-x-8">
+                        <div class="md:w-1/2 flex justify-center">
+                            <div class="bg-darkGray p-6 rounded-2xl border border-neutral-800 w-full max-w-xs text-center relative">
+                                <i class="fa-solid fa-drumstick-bite text-5xl text-warmYellow-500 mb-4 animate-bounce"></i>
+                                <div class="text-sm font-semibold text-neutral-400">100% 신선 통다리살</div>
+                                <div class="text-lg font-bold text-white mt-1">황금 비율 밀가루 배터링</div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 space-y-4">
+                            <h5 class="text-2xl font-title text-warmYellow-500">02. 엄선된 닭다리살 손질과 텐더링</h5>
+                            <p class="text-neutral-300 leading-relaxed text-sm">
+                                냉동 가공 패티가 아닙니다. 맘스터치의 전용 비법 가루와 염지 공법을 거친 냉장 통닭다리살 원육에 크리스피한 비쥬얼을 완성해줄 수제 배터 파우더를 한 장씩 정성스레 수작업으로 마사지합니다.
+                            </p>
+                            <ul class="space-y-2 text-xs text-neutral-400">
+                                <li><i class="fa-solid fa-circle-check text-warmYellow-500 mr-2"></i> 두툼한 볼륨감의 오리지널 육즙 봉인 작업</li>
+                                <li><i class="fa-solid fa-circle-check text-warmYellow-500 mr-2"></i> 균등하고 빈틈없는 리얼 크리스피 물결 크러스트</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 Content -->
+                    <div id="timeline-desc-3" class="timeline-content hidden space-y-6 md:space-y-0 md:flex md:items-center md:space-x-8">
+                        <div class="md:w-1/2 flex justify-center">
+                            <div class="bg-darkGray p-6 rounded-2xl border border-neutral-800 w-full max-w-xs text-center relative">
+                                <i class="fa-solid fa-fire text-5xl text-red-500 mb-4 animate-pulse"></i>
+                                <div class="text-sm font-semibold text-neutral-400">175°C 전용 프라이어 시스템</div>
+                                <div class="text-lg font-bold text-white mt-1">겉바속촉 6분 황금 튀김</div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 space-y-4">
+                            <h5 class="text-2xl font-title text-red-500">03. 압도적 육즙 보전을 위한 딥 프라잉</h5>
+                            <p class="text-neutral-300 leading-relaxed text-sm">
+                                기름 온도계의 오차 범위를 0.5°C 안팎으로 제한하는 특수 정밀 프라이어에서 겉은 크래커처럼 바삭하고 속은 입안 가득 감칠맛 도는 닭다리살의 육즙을 꽉 잡아 가둡니다.
+                            </p>
+                            <ul class="space-y-2 text-xs text-neutral-400">
+                                <li><i class="fa-solid fa-circle-check text-red-500 mr-2"></i> 산패 수치 1.0 이하의 엄격한 프리미엄 오일</li>
+                                <li><i class="fa-solid fa-circle-check text-red-500 mr-2"></i> 뼈 없이 부드러운 순살 통살의 속까지 균일 가열</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 Content -->
+                    <div id="timeline-desc-4" class="timeline-content hidden space-y-6 md:space-y-0 md:flex md:items-center md:space-x-8">
+                        <div class="md:w-1/2 flex justify-center">
+                            <div class="bg-darkGray p-6 rounded-2xl border border-neutral-800 w-full max-w-xs text-center relative">
+                                <i class="fa-solid fa-gift text-5xl text-green-500 mb-4"></i>
+                                <div class="text-sm font-semibold text-neutral-400">토스팅 완료 번 패키징</div>
+                                <div class="text-lg font-bold text-white mt-1">따끈한 행복의 은빛 보온 포장</div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 space-y-4">
+                            <h5 class="text-2xl font-title text-green-500">04. 촉촉한 소스와 양상추 토핑 플레이팅</h5>
+                            <p class="text-neutral-300 leading-relaxed text-sm">
+                                갓 구워낸 촉촉한 참깨 번 사이에 부드럽고 새콤달콤한 마요네즈 소스를 얹고, 엄선된 신선한 생 양상추와 슬라이스 피클을 결합한 후 막 꺼낸 뜨겁고 웅장한 통다리 패티를 올려 포장해냅니다.
+                            </p>
+                            <ul class="space-y-2 text-xs text-neutral-400">
+                                <li><i class="fa-solid fa-circle-check text-green-500 mr-2"></i> 고객 인도 시점까지 촉촉함을 가두는 밀착 포장</li>
+                                <li><i class="fa-solid fa-circle-check text-green-500 mr-2"></i> 손끝으로 전해지는 뜨거움, 진짜 맛의 시작</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strength-cards" class="py-24 bg-darkGray relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-deepOrange-500 font-bold tracking-wider text-sm uppercase">4 CORE POINTERS</span>
+                <h3 class="text-3xl md:text-5xl font-title mt-2 mb-4">맘스터치만이 지닌 확실한 매력</h3>
+                <p class="text-neutral-400">단순한 한 끼 식사 그 이상, 압도적 품질과 감동의 가심비 가치를 실현하는 핵심 기둥들입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Point 1 -->
+                <div class="bg-charcoal p-8 rounded-3xl border border-neutral-800 hover:border-deepOrange-500/40 transition-all-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-deepOrange-500/10 flex items-center justify-center mb-6 group-hover:bg-deepOrange-500 transition-all-300">
+                        <i class="fa-solid fa-coins text-deepOrange-500 group-hover:text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 group-hover:text-deepOrange-500 transition-all-300">Point 1. 압도적 가심비</h4>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        주 타겟인 1030 세대 주머니 걱정 없는 기적의 포만감! 합리적인 프라이싱으로 버거 하나만 먹어도 성인 남성 누구나 포만감을 가득 느낄 수 있도록 푸짐함을 보장합니다.
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="bg-charcoal p-8 rounded-3xl border border-neutral-800 hover:border-warmYellow-500/40 transition-all-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-warmYellow-500/10 flex items-center justify-center mb-6 group-hover:bg-warmYellow-500 transition-all-300">
+                        <i class="fa-solid fa-drumstick-bite text-warmYellow-500 group-hover:text-darkGray text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 group-hover:text-warmYellow-500 transition-all-300">Point 2. 통닭다리살의 신선함</h4>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        냉동 패티의 퍽퍽한 살이 아닌, 신선하고 촉촉한 100% 통다리살 원육의 마블링을 그대로 살렸습니다. 겉은 바삭하고 속은 야들야들한 '겉바속촉' 최상의 식감과 영양을 담보합니다.
+                    </p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="bg-charcoal p-8 rounded-3xl border border-neutral-800 hover:border-deepOrange-500/40 transition-all-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-deepOrange-500/10 flex items-center justify-center mb-6 group-hover:bg-deepOrange-500 transition-all-300">
+                        <i class="fa-solid fa-box text-deepOrange-500 group-hover:text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 group-hover:text-deepOrange-500 transition-all-300">Point 3. 케이준 감자튀김</h4>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        소금만 쳐진 밋밋한 사이드는 잊어라! 오직 맘스터치만의 고유한 짭조름하고 알싸한 특제 스파이스 양념을 입혀, 매니아층이 감튀만 따로 포장 주문할 정도로 독보적 중독성을 선보입니다.
+                    </p>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="bg-charcoal p-8 rounded-3xl border border-neutral-800 hover:border-warmYellow-500/40 transition-all-300 group">
+                    <div class="w-16 h-16 rounded-2xl bg-warmYellow-500/10 flex items-center justify-center mb-6 group-hover:bg-warmYellow-500 transition-all-300">
+                        <i class="fa-solid fa-clock text-warmYellow-500 group-hover:text-darkGray text-2xl"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 group-hover:text-warmYellow-500 transition-all-300">Point 4. 주문 즉시 조리</h4>
+                    <p class="text-neutral-400 text-xs leading-relaxed">
+                        미리 조립하여 건조해진 음식은 타협하지 않습니다. 주문 접수 신호가 떨어지면 비로소 고온 유조에서 프라잉을 가동시켜 최상의 바삭한 감동 온도를 보존하여 서빙합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-showcase" class="py-24 bg-charcoal relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-deepOrange-500 font-bold tracking-wider text-sm uppercase">MENU SHOWCASE</span>
+                    <h3 class="text-3xl md:text-5xl font-title mt-2">오늘 당신의 가심비를 채워줄 초이스</h3>
+                </div>
+                <!-- Categories Filtering for dynamic user flow -->
+                <div class="flex items-center space-x-2 mt-6 md:mt-0 overflow-x-auto pb-2 scrollbar-none">
+                    <button onclick="categoryFilter('all')" id="cat-all" class="cat-btn px-5 py-2 rounded-full font-bold text-sm bg-deepOrange-500 text-white transition-all-300">전체보기</button>
+                    <button onclick="categoryFilter('burger')" id="cat-burger" class="cat-btn px-5 py-2 rounded-full font-bold text-sm bg-darkGray text-neutral-400 hover:text-white transition-all-300">치킨버거류 🍔</button>
+                    <button onclick="categoryFilter('side')" id="cat-side" class="cat-btn px-5 py-2 rounded-full font-bold text-sm bg-darkGray text-neutral-400 hover:text-white transition-all-300">사이드/감튀 🍟</button>
+                </div>
+            </div>
+
+            <!-- Menu Grid Layout -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                
+                <!-- Card 1: 싸이버거 (Signature/Best) -->
+                <div class="menu-card bg-darkGray rounded-3xl overflow-hidden border border-neutral-800 hover:border-deepOrange-500/30 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between" data-category="burger">
+                    <div>
+                        <div class="relative bg-neutral-900/40 p-6 flex justify-center items-center h-48">
+                            <span class="absolute top-4 left-4 bg-deepOrange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase">시그니처 ⭐</span>
+                            <!-- SVG Representation -->
+                            <svg class="w-28 h-28" viewBox="0 0 400 400">
+                                <path d="M90,140 Q200,60 310,140 L290,165 Q200,180 110,165 Z" fill="#D27D2D" />
+                                <path d="M100,165 C130,165 140,180 160,180 C180,180 190,170 210,170" stroke="#FFC107" stroke-width="8" fill="none" />
+                                <path d="M80,190 C110,180 140,210 180,195 C220,180 260,210 310,190 Q320,225 280,235 C230,245 170,225 130,245 Z" fill="#80471C" />
+                                <path d="M70,240 C90,230 120,255 150,240 C180,225 210,255 240,240 C270,225 290,255 315,240" fill="#2E7D32" />
+                                <path d="M90,270 Q200,250 310,270 L300,310 Q200,325 100,310 Z" fill="#C57022" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold">오리지널 싸이버거</h4>
+                            <p class="text-neutral-500 text-[11px] mt-1">입 찢어지는 역대급 두께의 통다리살</p>
+                            <p class="text-neutral-400 text-xs mt-3 line-clamp-2">촉촉한 통닭다리살을 주방에서 매일 직조 조리하여 신선함의 극치를 보장합니다. 새콤달콤 비법 하얀 마요 소스의 중독적인 완성형 하모니.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-neutral-900/80 flex justify-between items-center bg-neutral-900/10">
+                        <div>
+                            <span class="text-[10px] text-neutral-500 block">극강 가심비</span>
+                            <span class="text-lg font-bold font-outfit text-warmYellow-500">₩4,900</span>
+                        </div>
+                        <button onclick="addToTray('오리지널 싸이버거', 4900)" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white p-3 rounded-2xl transition-all-300">
+                            <i class="fa-solid fa-plus text-xs"></i> 트레이 담기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2: 불싸이버거 (Spicy variant) -->
+                <div class="menu-card bg-darkGray rounded-3xl overflow-hidden border border-neutral-800 hover:border-deepOrange-500/30 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between" data-category="burger">
+                    <div>
+                        <div class="relative bg-neutral-900/40 p-6 flex justify-center items-center h-48">
+                            <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase">화끈매콤 🌶️</span>
+                            <!-- SVG Spiced Red variant -->
+                            <svg class="w-28 h-28" viewBox="0 0 400 400">
+                                <path d="M90,140 Q200,60 310,140 L290,165 Q200,180 110,165 Z" fill="#D27D2D" />
+                                <path d="M100,165 Q200,195 310,165" stroke="#E53935" stroke-width="8" fill="none" />
+                                <path d="M80,190 C110,180 140,210 180,195 C220,180 260,210 310,190 Q320,225 280,235 Z" fill="#80471C" />
+                                <path d="M70,240 C90,230 120,255 150,240 C180,225 210,255 240,240 C270,225 290,255 315,240" fill="#2E7D32" />
+                                <path d="M90,270 Q200,250 310,270 L300,310 Q200,325 100,310 Z" fill="#C57022" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold">크레이지 불싸이버거</h4>
+                            <p class="text-neutral-500 text-[11px] mt-1">청양초 소스의 중독성 강한 짜릿한 한방</p>
+                            <p class="text-neutral-400 text-xs mt-3 line-clamp-2">1030 세대의 스트레스를 완전히 날려버릴 매콤한 매운맛! 눈물이 찔끔 나지만 멈출 수 없는 화끈함이 특징입니다.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-neutral-900/80 flex justify-between items-center bg-neutral-900/10">
+                        <div>
+                            <span class="text-[10px] text-neutral-500 block">이열치열 초이스</span>
+                            <span class="text-lg font-bold font-outfit text-warmYellow-500">₩5,200</span>
+                        </div>
+                        <button onclick="addToTray('크레이지 불싸이버거', 5200)" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white p-3 rounded-2xl transition-all-300">
+                            <i class="fa-solid fa-plus text-xs"></i> 트레이 담기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3: 화이트갈릭버거 (Heavy Premium) -->
+                <div class="menu-card bg-darkGray rounded-3xl overflow-hidden border border-neutral-800 hover:border-deepOrange-500/30 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between" data-category="burger">
+                    <div>
+                        <div class="relative bg-neutral-900/40 p-6 flex justify-center items-center h-48">
+                            <span class="absolute top-4 left-4 bg-yellow-500 text-darkGray text-[10px] font-black px-2.5 py-1 rounded-full uppercase">묵직마늘 🧄</span>
+                            <!-- SVG White Garlic -->
+                            <svg class="w-28 h-28" viewBox="0 0 400 400">
+                                <path d="M90,140 Q200,60 310,140 L290,165 Q200,180 110,165 Z" fill="#D27D2D" />
+                                <path d="M100,165 Q200,195 310,165" stroke="#ECEFF1" stroke-width="10" fill="none" />
+                                <path d="M80,190 C110,180 140,210 180,195 C220,180 260,210 310,190 Z" fill="#80471C" />
+                                <path d="M90,270 Q200,250 310,270 L300,310 Q200,325 100,310 Z" fill="#C57022" />
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold">딥치즈 화이트갈릭버거</h4>
+                            <p class="text-neutral-500 text-[11px] mt-1">부드러운 화이트 소스와 갈릭의 만남</p>
+                            <p class="text-neutral-400 text-xs mt-3 line-clamp-2">알싸한 갈릭이 마요네즈와 조화롭게 어우러져 한층 더 깊은 풍미를 자랑합니다. 묵직하고 꾸덕한 바디감을 사랑하는 마니아 맞춤형 버거.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-neutral-900/80 flex justify-between items-center bg-neutral-900/10">
+                        <div>
+                            <span class="text-[10px] text-neutral-500 block">매니아 강추</span>
+                            <span class="text-lg font-bold font-outfit text-warmYellow-500">₩5,400</span>
+                        </div>
+                        <button onclick="addToTray('딥치즈 화이트갈릭버거', 5400)" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white p-3 rounded-2xl transition-all-300">
+                            <i class="fa-solid fa-plus text-xs"></i> 트레이 담기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4: 케이준 감자튀김 (Side) -->
+                <div class="menu-card bg-darkGray rounded-3xl overflow-hidden border border-neutral-800 hover:border-deepOrange-500/30 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between" data-category="side">
+                    <div>
+                        <div class="relative bg-neutral-900/40 p-6 flex justify-center items-center h-48">
+                            <span class="absolute top-4 left-4 bg-amber-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase font-mono">MUST HAVE 🍟</span>
+                            <!-- SVG Cajun Fries -->
+                            <svg class="w-28 h-28" viewBox="0 0 400 400">
+                                <path d="M120,250 L120,110 L140,110 L140,250 Z" fill="#FFC107" transform="rotate(-15 120 250)"/>
+                                <path d="M170,250 L170,90 L190,90 L190,250 Z" fill="#E65100" transform="rotate(-5 170 250)"/>
+                                <path d="M220,250 L220,100 L240,100 L240,250 Z" fill="#FFC107" transform="rotate(12 220 250)"/>
+                                <!-- Paper Container -->
+                                <path d="M90,200 L310,200 L280,330 L120,330 Z" fill="#B24B00" />
+                                <text x="200" y="270" font-family="Pretendard" font-weight="900" font-size="18" fill="#FFFFFF" text-anchor="middle">MOMS</text>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-lg font-bold">케이준 양념감자</h4>
+                            <p class="text-neutral-500 text-[11px] mt-1">한 번 먹으면 멈출 수 없는 양념 양념 감튀</p>
+                            <p class="text-neutral-400 text-xs mt-3 line-clamp-2">짭조름한 케이준 시즈닝이 골고루 버무려진 시그니처 감자튀김. 사이드만 먹으러 온다는 소문이 돌 정도의 독보적인 스파이스 맛.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-neutral-900/80 flex justify-between items-center bg-neutral-900/10">
+                        <div>
+                            <span class="text-[10px] text-neutral-500 block">영혼의 동반자</span>
+                            <span class="text-lg font-bold font-outfit text-warmYellow-500">₩2,200</span>
+                        </div>
+                        <button onclick="addToTray('케이준 양념감자', 2200)" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white p-3 rounded-2xl transition-all-300">
+                            <i class="fa-solid fa-plus text-xs"></i> 트레이 담기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="thickness-simulator" class="py-24 bg-darkGray relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-deepOrange-950/20 via-transparent to-transparent pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Panel: Slider Controls -->
+            <div class="lg:col-span-6 space-y-6">
+                <span class="text-warmYellow-500 font-bold tracking-wider text-sm uppercase">INTERACTIVE EXPERIMENTAL SIMULATION</span>
+                <h3 class="text-3xl md:text-5xl font-title">압도적인 한 입의 포만감,<br>실시간 두께 커스텀 시뮬레이터</h3>
+                <p class="text-neutral-400">
+                    눈앞에서 직관적으로 증명되는 볼륨감! 하단 슬라이더를 원하는 두께까지 쭉 올려보세요. 패티 두께가 두꺼워질수록, 맘스터치만이 선사하는 압도적인 가심비 충족 지수 게이지와 위트 있는 한마디 코멘트를 실시간으로 체험할 수 있습니다.
+                </p>
+
+                <div class="bg-charcoal p-8 rounded-3xl border border-neutral-800 space-y-6">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-neutral-300 text-sm">타겟 싸이 패티 볼륨 높이</span>
+                        <span id="slider-val-text" class="font-title text-3xl text-deepOrange-500">13mm</span>
+                    </div>
+
+                    <!-- Slider Input Range -->
+                    <input type="range" id="sim-slider" min="6" max="25" value="13" class="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-deepOrange-500" oninput="simRender(this.value)">
+
+                    <!-- Simulated Status metrics -->
+                    <div class="space-y-4 pt-4 border-t border-neutral-800">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-neutral-400 mb-1">
+                                <span>1030 청년 가심비 충족지수</span>
+                                <span id="gauge-satisfaction" class="text-warmYellow-500">92%</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                                <div id="gauge-sat-bar" class="bg-gradient-to-r from-warmYellow-500 to-deepOrange-500 h-full transition-all duration-300" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-bold text-neutral-400 mb-1">
+                                <span>체감 포만감 상태</span>
+                                <span id="gauge-fullness" class="text-deepOrange-500">든든하고 촉촉함</span>
+                            </div>
+                            <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                                <div id="gauge-full-bar" class="bg-gradient-to-r from-deepOrange-500 to-red-600 h-full transition-all duration-300" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Reaction Message Box -->
+                    <div class="bg-darkGray p-4 rounded-2xl text-center border border-neutral-800">
+                        <p id="sim-speech" class="text-xs md:text-sm font-semibold text-neutral-300">
+                            "싸이버거 정석 13mm! 겉바속촉 육즙과 한 입 가득 차는 대박 만족감을 느껴보세요!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Scalable Interactive Dynamic Burger Rendering -->
+            <div class="lg:col-span-6 flex flex-col justify-center items-center py-6">
+                <div class="text-[10px] text-neutral-500 mb-4 bg-charcoal px-4 py-2 rounded-full border border-neutral-800 flex items-center space-x-2">
+                    <span class="flex h-1.5 w-1.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-deepOrange-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-deepOrange-500"></span>
+                    </span>
+                    <span>실시간 3D 볼륨감 렌더링 엔진 가동 중</span>
+                </div>
+
+                <!-- Custom Burger Stack Canvas wrapper -->
+                <div class="relative bg-charcoal rounded-3xl p-8 border border-neutral-800 w-full max-w-sm flex justify-center items-center h-96 overflow-hidden">
+                    <div id="burger-renderer" class="w-full transition-transform duration-300 ease-out transform scale-100 flex flex-col items-center">
+                        
+                        <!-- Top Toast Bun -->
+                        <div class="w-44 h-12 bg-[#D27D2D] rounded-t-full relative -mb-1 shadow-md z-30 transition-all duration-300">
+                            <div class="absolute w-1 h-2 bg-yellow-100/60 rounded-full top-3 left-8 rotate-45"></div>
+                            <div class="absolute w-1 h-2 bg-yellow-100/60 rounded-full top-5 left-20 rotate-12"></div>
+                            <div class="absolute w-1 h-2 bg-yellow-100/60 rounded-full top-4 left-32 -rotate-30"></div>
+                        </div>
+
+                        <!-- Special Cream Mayo white sauce layer -->
+                        <div class="w-40 h-2.5 bg-[#FBF9F1] rounded-b-full shadow-inner z-20 -mb-1 transition-all duration-300"></div>
+
+                        <!-- Thigh Crispy Patty (The dynamic height element driven by Javascript) -->
+                        <div id="sim-patty-block" class="w-44 bg-[#80471C] rounded-xl border-y-4 border-[#FF9F1C] shadow-lg z-10 transition-all duration-300 flex items-center justify-center text-white font-black select-none overflow-hidden" style="height: 65px;">
+                            <span id="patty-tag" class="text-[10px] drop-shadow-md bg-darkGray/70 px-2 py-0.5 rounded-full font-sans tracking-wide">100% 통다리 패티</span>
+                        </div>
+
+                        <!-- Lettuce Layer -->
+                        <div class="w-44 h-3 bg-[#2E7D32] rounded-full z-20 -mt-1 transition-all duration-300 flex justify-between px-6">
+                            <div class="w-2.5 h-4 bg-[#2E7D32] rounded-b-full"></div>
+                            <div class="w-3.5 h-5 bg-[#2E7D32] rounded-b-full"></div>
+                            <div class="w-2.5 h-4 bg-[#2E7D32] rounded-b-full"></div>
+                        </div>
+
+                        <!-- Bottom Toast Bun -->
+                        <div class="w-40 h-8 bg-[#C57022] rounded-b-xl shadow-inner transition-all duration-300"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="store-finder" class="py-24 bg-charcoal relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left: Search controls -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-deepOrange-500 font-bold tracking-wider text-sm uppercase">MOMS TOUCH MAP FINDER</span>
+                    <h3 class="text-3xl md:text-5xl font-title">주변 매장 찾고<br>주문 즉시 따뜻하게 수령</h3>
+                    <p class="text-neutral-400">
+                        전국 방방곡곡 어디서든 맘스터치 오리지널 레시피와 After-Order 바삭함을 즐길 수 있습니다. 내 주변 최단거리 매장을 탐색해 보세요.
+                    </p>
+
+                    <!-- Interactive finder -->
+                    <div class="bg-darkGray p-6 rounded-3xl border border-neutral-800 space-y-4">
+                        <div class="relative">
+                            <input type="text" id="map-search-val" placeholder="행정구역 또는 매장명 검색 (예: 강남역, 서면, 홍대)" class="w-full bg-charcoal border border-neutral-800 focus:border-deepOrange-500 text-white rounded-2xl py-4 px-5 pr-12 text-xs focus:outline-none transition-all-300">
+                            <button onclick="triggerMapSearch()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-deepOrange-500 hover:text-white transition-all-300">
+                                <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                            </button>
+                        </div>
+
+                        <!-- Store match lists -->
+                        <div class="space-y-3 max-h-56 overflow-y-auto pr-1">
+                            <!-- Store 1 -->
+                            <div onclick="selectStoreMap('gangnam')" id="card-store-gangnam" class="store-item-card bg-charcoal p-4 rounded-2xl border border-deepOrange-500/80 cursor-pointer transition-all-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="font-bold text-white text-xs">맘스터치 강남대로점 <span class="bg-deepOrange-500/10 text-deepOrange-500 text-[9px] font-bold px-2 py-0.5 rounded ml-1">가장 가까움</span></h5>
+                                    <span class="text-[10px] text-neutral-500 font-mono">1.2 km</span>
+                                </div>
+                                <p class="text-[11px] text-neutral-400 mt-2"><i class="fa-solid fa-map-pin mr-1"></i> 서울시 강남구 강남대로 390 (역삼동, 8번 출구 앞)</p>
+                                <p class="text-[10px] text-neutral-500 mt-1"><i class="fa-solid fa-clock mr-1"></i> 11:00 - 22:30 (마지막 주문 22:00)</p>
+                            </div>
+
+                            <!-- Store 2 -->
+                            <div onclick="selectStoreMap('hongdae')" id="card-store-hongdae" class="store-item-card bg-charcoal/40 hover:bg-charcoal p-4 rounded-2xl border border-neutral-800 cursor-pointer transition-all-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="font-bold text-white text-xs">맘스터치 홍대삼거리점</h5>
+                                    <span class="text-[10px] text-neutral-500 font-mono">4.5 km</span>
+                                </div>
+                                <p class="text-[11px] text-neutral-400 mt-2"><i class="fa-solid fa-map-pin mr-1"></i> 서울시 마포구 와우산로 100-3 (상수동 인근)</p>
+                                <p class="text-[10px] text-neutral-500 mt-1"><i class="fa-solid fa-clock mr-1"></i> 11:00 - 23:00 (불금/주말 야간 혼밥 적극 권장)</p>
+                            </div>
+
+                            <!-- Store 3 -->
+                            <div onclick="selectStoreMap('seomyeon')" id="card-store-seomyeon" class="store-item-card bg-charcoal/40 hover:bg-charcoal p-4 rounded-2xl border border-neutral-800 cursor-pointer transition-all-300">
+                                <div class="flex justify-between items-start">
+                                    <h5 class="font-bold text-white text-xs">맘스터치 부산 서면중앙점</h5>
+                                    <span class="text-[10px] text-neutral-500 font-mono">325 km</span>
+                                </div>
+                                <p class="text-[11px] text-neutral-400 mt-2"><i class="fa-solid fa-map-pin mr-1"></i> 부산 부산진구 중앙대로 711-5</p>
+                                <p class="text-[10px] text-neutral-500 mt-1"><i class="fa-solid fa-clock mr-1"></i> 10:30 - 22:00 (정량 패티 100% 한정판매)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Mock Map visual wrapper -->
+                <div class="lg:col-span-7 bg-darkGray rounded-3xl p-4 border border-neutral-800 flex flex-col h-[400px] md:h-[480px] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-neutral-900 grid grid-cols-12 grid-rows-12 opacity-40 pointer-events-none">
+                        <!-- Simulated grid lines representing streets -->
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                        <div class="col-span-12 border-b border-neutral-800/40"></div>
+                    </div>
+
+                    <!-- Map overlay nodes -->
+                    <div id="map-plane" class="relative w-full h-full">
+                        
+                        <!-- Street overlay shapes -->
+                        <div class="absolute bg-neutral-800 h-10 w-full top-1/3 left-0 transform rotate-1 opacity-60"></div>
+                        <div class="absolute bg-neutral-800 h-12 w-full top-2/3 left-0 transform -rotate-3 opacity-60"></div>
+                        <div class="absolute bg-neutral-800 w-12 h-full top-0 left-1/3 transform rotate-6 opacity-60"></div>
+
+                        <!-- User Pin node -->
+                        <div class="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-20">
+                            <div class="bg-blue-600 text-white rounded-full p-2.5 shadow-lg animate-pulse">
+                                <i class="fa-solid fa-street-view text-base"></i>
+                            </div>
+                            <span class="block bg-neutral-900/90 text-[9px] text-white px-2 py-0.5 rounded border border-neutral-700 mt-1 whitespace-nowrap">현 내 위 치</span>
+                        </div>
+
+                        <!-- Marker: Gangnam -->
+                        <div id="pin-gangnam" class="absolute top-1/4 left-2/3 transform -translate-x-1/2 -translate-y-1/2 text-center z-30 transition-all duration-300">
+                            <div class="bg-deepOrange-500 text-white rounded-full p-3 shadow-2xl border-2 border-white cursor-pointer hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-burger text-base"></i>
+                            </div>
+                            <span class="block bg-deepOrange-500 text-white text-[9px] font-bold px-2 py-0.5 rounded border border-white mt-1 whitespace-nowrap">강남대로점 (ON)</span>
+                        </div>
+
+                        <!-- Marker: Hongdae -->
+                        <div id="pin-hongdae" class="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 text-center opacity-60 z-20 transition-all duration-300">
+                            <div class="bg-neutral-700 text-neutral-300 rounded-full p-2.5 shadow-lg cursor-pointer hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-burger text-xs"></i>
+                            </div>
+                            <span class="block bg-neutral-800 text-neutral-400 text-[8px] px-1.5 py-0.5 rounded mt-1 whitespace-nowrap">홍대삼거리점</span>
+                        </div>
+
+                        <!-- Marker: Seomyeon -->
+                        <div id="pin-seomyeon" class="absolute bottom-12 left-12 transform -translate-x-1/2 -translate-y-1/2 text-center opacity-60 z-20 transition-all duration-300">
+                            <div class="bg-neutral-700 text-neutral-300 rounded-full p-2.5 shadow-lg cursor-pointer hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-burger text-xs"></i>
+                            </div>
+                            <span class="block bg-neutral-800 text-neutral-400 text-[8px] px-1.5 py-0.5 rounded mt-1 whitespace-nowrap">부산 서면중앙점</span>
+                        </div>
+                    </div>
+
+                    <!-- Legend overlay overlay -->
+                    <div class="absolute bottom-4 right-4 bg-charcoal/95 border border-neutral-800 p-3 rounded-xl z-20 text-[10px] space-y-1">
+                        <div class="font-bold text-neutral-300 mb-1">지도 범례</div>
+                        <div class="flex items-center space-x-2 text-neutral-400">
+                            <span class="w-3 h-3 rounded-full bg-deepOrange-500 block border border-white"></span>
+                            <span>선택한 매장</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-neutral-400">
+                            <span class="w-3 h-3 rounded-full bg-blue-600 block"></span>
+                            <span>내 위치</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gradient-to-r from-deepOrange-600 via-deepOrange-500 to-warmYellow-600 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 flex justify-around items-center pointer-events-none select-none">
+            <i class="fa-solid fa-burger text-9xl"></i>
+            <i class="fa-solid fa-drumstick-bite text-9xl"></i>
+            <i class="fa-solid fa-fire text-9xl"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 text-center relative z-10 space-y-6">
+            <h4 class="text-3xl md:text-5xl font-title leading-tight text-white drop-shadow">"타협하지 않는 압도적 두께,<br>진짜 치킨버거의 전율을 지금 느껴보세요."</h4>
+            <p class="text-white/95 text-xs md:text-base max-w-xl mx-auto">
+                가성비와 압도적인 만족의 끝판왕 싸이버거,<br>매장에서 갓 튀긴 케이준 양념감자가 당신의 트레이를 기다립니다.
+            </p>
+            <div class="flex justify-center pt-2">
+                <a href="#menu-showcase" class="bg-darkGray hover:bg-black text-warmYellow-500 font-bold px-8 py-4 rounded-full text-sm md:text-base shadow-xl shadow-black/20 hover:shadow-black/40 transition-all duration-300 transform hover:-translate-y-1">
+                    지금 메뉴 추가하기 <i class="fa-solid fa-basket-shopping ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-16 px-6 border-t border-neutral-900 text-neutral-500 text-xs">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+            <!-- Col 1 -->
+            <div class="space-y-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-deepOrange-500 font-title text-2xl tracking-wider">MOM'S</span>
+                    <span class="bg-warmYellow-500 text-darkGray px-1.5 py-0.2 rounded font-title text-sm transform rotate-2">TOUCH</span>
+                </a>
+                <p class="leading-relaxed text-neutral-600">
+                    맘스터치는 획일화된 기존 패스트푸드의 조리 체계를 혁신하고, 매 순간 주문 즉시 튀겨 바삭함을 전달하는 브랜드 철학을 지킵니다. 1030 세대에게 매번 최고의 가심비 경험을 선물합니다.
+                </p>
+            </div>
+            <!-- Col 2 -->
+            <div class="space-y-3">
+                <h5 class="text-white font-bold tracking-wider">메인 메뉴 가기</h5>
+                <ul class="space-y-2">
+                    <li><a href="#brand-intro" class="hover:text-white transition-all-300">브랜드 가치관</a></li>
+                    <li><a href="#strength-cards" class="hover:text-white transition-all-300">매력 포인트</a></li>
+                    <li><a href="#menu-showcase" class="hover:text-white transition-all-300">베스트 메뉴</a></li>
+                    <li><a href="#thickness-simulator" class="hover:text-white transition-all-300">두께 가상 시뮬레이터</a></li>
+                </ul>
+            </div>
+            <!-- Col 3 -->
+            <div class="space-y-3">
+                <h5 class="text-white font-bold tracking-wider">가맹 및 영업 약관</h5>
+                <p class="leading-relaxed">
+                    본사 고객지원팀: 1661-4200<br>
+                    영업 문의: 11:00 - 18:00 (주말 제외)<br>
+                    가맹 개설 문의: franchise@momstouch.co.kr<br>
+                    개인정보 처리 방침 | 서비스 이용 규칙
+                </p>
+            </div>
+            <!-- Col 4 -->
+            <div class="space-y-3">
+                <h5 class="text-white font-bold tracking-wider">실시간 가맹 뉴스레터</h5>
+                <p>가장 빠른 신메뉴 출시 알림과 특별 가심비 할인 쿠폰 혜택 소식을 즉각 이메일로 받아보세요.</p>
+                <div class="flex">
+                    <input type="email" placeholder="이메일 주소 등록" class="bg-neutral-900 text-white text-xs px-3 py-2 rounded-l-lg border border-neutral-800 focus:outline-none focus:border-deepOrange-500 w-full">
+                    <button onclick="subscribeAlert()" class="bg-deepOrange-500 hover:bg-deepOrange-600 text-white text-xs font-bold px-4 py-2 rounded-r-lg transition-all-300">구독</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-neutral-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-[11px] space-y-4 md:space-y-0">
+            <p>© 2026 주식회사 맘스터치앤컴퍼니 (Mom's Touch Corp). All Rights Reserved.</p>
+            <div class="flex space-x-6 text-base">
+                <a href="#" class="hover:text-white transition-all-300"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition-all-300"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="hover:text-white transition-all-300"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black/70 z-50 flex justify-end transition-opacity duration-300 pointer-events-none opacity-0">
+        <div class="bg-darkGray w-full max-w-md h-full shadow-2xl border-l border-neutral-800 flex flex-col justify-between transform translate-x-full transition-transform duration-300 pointer-events-auto">
+            <!-- Header -->
+            <div class="p-6 border-b border-neutral-800 flex justify-between items-center bg-charcoal">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-burger text-deepOrange-500 text-lg animate-bounce"></i>
+                    <h4 class="text-base font-bold">맘스 가심비 주문 트레이</h4>
+                </div>
+                <button onclick="toggleCartModal()" class="text-neutral-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items List Container -->
+            <div id="cart-item-list" class="p-6 overflow-y-auto flex-1 space-y-4">
+                <!-- Fallback view when empty -->
+                <div id="cart-empty-view" class="h-full flex flex-col justify-center items-center text-center space-y-4 text-neutral-500">
+                    <i class="fa-solid fa-basket-shopping text-5xl text-neutral-700 animate-pulse"></i>
+                    <p class="text-xs leading-relaxed">트레이가 비어 있습니다.<br>배불리 먹어도 안심할 수 있는 맘스터치를 담아보세요!</p>
+                </div>
+            </div>
+
+            <!-- Total Pricing & Smart cost efficiency indicators -->
+            <div class="p-6 border-t border-neutral-800 bg-charcoal space-y-4">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-neutral-400">담긴 총 상품 수량</span>
+                    <span id="tray-total-qty" class="font-bold text-white">0개</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-neutral-400">최종 결제 금액</span>
+                    <span id="tray-total-price" class="font-title text-2xl text-warmYellow-500">₩0</span>
+                </div>
+
+                <!-- Custom gauge representing extreme budget-friendliness score -->
+                <div class="bg-darkGray p-4 rounded-2xl border border-neutral-800">
+                    <div class="flex justify-between text-[11px] text-neutral-400 mb-1">
+                        <span>현재 장바구니 가심비 만족 효율</span>
+                        <span id="cart-efficiency" class="font-bold text-deepOrange-500">대기 중</span>
+                    </div>
+                    <div class="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden">
+                        <div id="cart-efficiency-gauge-bar" class="bg-deepOrange-500 h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <button onclick="checkoutTray()" class="w-full bg-deepOrange-500 hover:bg-deepOrange-600 text-white font-bold py-4 rounded-xl text-center shadow-lg shadow-deepOrange-500/20 transition-all-300 text-sm">
+                     After-Order 즉시 접수 주문하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-charcoal border border-deepOrange-500/50 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 opacity-0 pointer-events-none transition-all duration-300">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-green-500 text-base"></i>
+        <span id="toast-text" class="text-xs font-semibold">트레이에 완벽하게 추가되었습니다!</span>
+    </div>
+
+
+    <script>
+        // Global variables for cart state
+        let cartTray = [];
+        let curTimelineStep = 1;
+
+        // Sticky Navbar Event Listener
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 40) {
+                nav.classList.add('bg-darkGray/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-neutral-800', 'py-3');
+                nav.classList.remove('bg-transparent', 'py-4');
+            } else {
+                nav.classList.remove('bg-darkGray/90', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-neutral-800', 'py-3');
+                nav.classList.add('bg-transparent', 'py-4');
+            }
+        });
+
+        // Mobile Menu Toggler
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('translate-x-full')) {
+                menu.classList.remove('translate-x-full');
+                icon.className = "fa-solid fa-xmark text-2xl";
+            } else {
+                menu.classList.add('translate-x-full');
+                icon.className = "fa-solid fa-bars text-2xl";
+            }
+        }
+
+        // Timeline Step Navigation Function
+        function changeProcessStep(step) {
+            // style timeline buttons dynamically
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`timeline-btn-${i}`);
+                if (i === step) {
+                    btn.className = "timeline-btn px-4 py-4 rounded-2xl bg-deepOrange-500 text-white font-bold transition-all-300 border border-deepOrange-500 scale-105";
+                } else {
+                    btn.className = "timeline-btn px-4 py-4 rounded-2xl bg-charcoal text-neutral-400 hover:text-white font-bold transition-all-300 border border-neutral-800 hover:border-neutral-700";
+                }
+            }
+
+            // toggle visibility of description items
+            for (let i = 1; i <= 4; i++) {
+                const desc = document.getElementById(`timeline-desc-${i}`);
+                if (i === step) {
+                    desc.classList.remove('hidden');
+                    desc.classList.add('block');
+                } else {
+                    desc.classList.remove('block');
+                    desc.classList.add('hidden');
+                }
+            }
+            curTimelineStep = step;
+        }
+
+        // Auto rotation interval for slider Timeline (10 seconds)
+        setInterval(() => {
+            let target = curTimelineStep + 1;
+            if (target > 4) target = 1;
+            changeProcessStep(target);
+        }, 10000);
+
+        // Menu Tab filters
+        function categoryFilter(category) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.className = "cat-btn px-5 py-2 rounded-full font-bold text-sm bg-darkGray text-neutral-400 hover:text-white transition-all-300";
+            });
+
+            const activeBtn = document.getElementById(`cat-${category}`);
+            if (activeBtn) {
+                activeBtn.className = "cat-btn px-5 py-2 rounded-full font-bold text-sm bg-deepOrange-500 text-white transition-all-300";
+            }
+
+            const cards = document.querySelectorAll('.menu-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    const cardCat = card.getAttribute('data-category');
+                    if (cardCat === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Cart Drawer Control
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            if (modal.classList.contains('pointer-events-none')) {
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.firstElementChild.classList.remove('translate-x-full');
+            } else {
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                modal.firstElementChild.classList.add('translate-x-full');
+            }
+        }
+
+        // Add menu to cart state
+        function addToTray(name, price) {
+            const item = cartTray.find(p => p.name === name);
+            if (item) {
+                item.qty += 1;
+            } else {
+                cartTray.push({ name, price, qty: 1 });
+            }
+            updateTrayUI();
+            triggerToast(`${name}이(가) 트레이에 담겼습니다!`);
+        }
+
+        function removeTrayItem(name) {
+            cartTray = cartTray.filter(p => p.name !== name);
+            updateTrayUI();
+        }
+
+        function changeTrayQty(name, delta) {
+            const item = cartTray.find(p => p.name === name);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    removeTrayItem(name);
+                    return;
+                }
+            }
+            updateTrayUI();
+        }
+
+        // Render Cart State to DOM elements
+        function updateTrayUI() {
+            const list = document.getElementById('cart-item-list');
+            const emptyView = document.getElementById('cart-empty-view');
+            const qtyBadge = document.getElementById('cart-count');
+            const totalQtySpan = document.getElementById('tray-total-qty');
+            const totalPriceSpan = document.getElementById('tray-total-price');
+            const effText = document.getElementById('cart-efficiency');
+            const effBar = document.getElementById('cart-efficiency-gauge-bar');
+
+            if (cartTray.length === 0) {
+                list.innerHTML = '';
+                list.appendChild(emptyView);
+                qtyBadge.classList.add('hidden');
+                totalQtySpan.innerText = '0개';
+                totalPriceSpan.innerText = '₩0';
+                effText.innerText = '대기 중';
+                effBar.style.width = '0%';
+                return;
+            }
+
+            // clean container
+            list.innerHTML = '';
+
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            cartTray.forEach(item => {
+                totalQty += item.qty;
+                totalPrice += item.price * item.qty;
+
+                const row = document.createElement('div');
+                row.className = "bg-charcoal p-4 rounded-2xl border border-neutral-800 flex justify-between items-center transition-all-300";
+                row.innerHTML = `
+                    <div class="space-y-1">
+                        <h5 class="text-xs font-bold text-white">${item.name}</h5>
+                        <p class="text-xs text-warmYellow-500 font-bold font-mono">₩${(item.price * item.qty).toLocaleString()}</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-2 bg-darkGray px-3 py-1 rounded-lg border border-neutral-800">
+                            <button onclick="changeTrayQty('${item.name}', -1)" class="text-neutral-500 hover:text-white transition-all-300 text-xs font-bold">-</button>
+                            <span class="text-xs font-bold text-white w-4 text-center font-mono">${item.qty}</span>
+                            <button onclick="changeTrayQty('${item.name}', 1)" class="text-neutral-500 hover:text-white transition-all-300 text-xs font-bold">+</button>
+                        </div>
+                        <button onclick="removeTrayItem('${item.name}')" class="text-neutral-500 hover:text-red-500 transition-all-300">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+
+            totalQtySpan.innerText = `${totalQty}개`;
+            totalPriceSpan.innerText = `₩${totalPrice.toLocaleString()}`;
+
+            qtyBadge.classList.remove('hidden');
+            qtyBadge.innerText = totalQty;
+
+            // Gamified calculation of target 1030 cost-performance metrics
+            let score = 0;
+            if (totalPrice < 6000) {
+                effText.innerText = '가벼운 맘스 디저트 스낵백 ⚡';
+                score = 35;
+            } else if (totalPrice >= 6000 && totalPrice <= 14000) {
+                effText.innerText = '가장 균형 잡힌 싸이버거 가심비 충전 완성! 🍔🍟';
+                score = 98;
+            } else {
+                effText.innerText = '위장 용량 초과! 배부름 포만 지수 폭발 👑';
+                score = 100;
+            }
+            effBar.style.width = `${score}%`;
+        }
+
+        // Mock Checkout Execution flow without raw dialogs
+        function checkoutTray() {
+            if (cartTray.length === 0) {
+                triggerToast("주문할 버거가 비어 있습니다! 메뉴를 먼저 트레이에 추가해주세요.", false);
+                return;
+            }
+
+            toggleCartModal();
+
+            // Create temporary immersive pop-up element matching the theme
+            const alertBox = document.createElement('div');
+            alertBox.id = "immersive-alert";
+            alertBox.className = "fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-6";
+            alertBox.innerHTML = `
+                <div class="bg-charcoal border border-deepOrange-500 rounded-3xl p-8 max-w-sm w-full text-center space-y-6 transform scale-95 transition-transform duration-300">
+                    <i class="fa-solid fa-fire text-6xl text-deepOrange-500 animate-bounce"></i>
+                    <div class="space-y-2">
+                        <h4 class="text-2xl font-title text-white">After-Order 즉시 조리!</h4>
+                        <p class="text-xs text-neutral-400">주문 접수 완료! 맘스터치 주방에서 <br>100% 통다리살 패티를 고온 프라이어에 튀기기 시작합니다.</p>
+                    </div>
+                    <div class="bg-darkGray p-4 rounded-2xl text-xs text-left text-neutral-300 border border-neutral-800">
+                        <p class="font-bold text-white mb-2"><i class="fa-solid fa-receipt mr-1 text-deepOrange-500"></i> 주문 영수증 내역</p>
+                        ${cartTray.map(item => `<div>• ${item.name} (${item.qty}개)</div>`).join('')}
+                    </div>
+                    <button onclick="dismissAlert()" class="w-full bg-deepOrange-500 hover:bg-deepOrange-600 text-white font-bold py-3 rounded-xl transition-all-300 text-xs">
+                        갓 튀겨낸 바삭함 수령하기
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(alertBox);
+
+            // Empty cart tray state
+            cartTray = [];
+            updateTrayUI();
+        }
+
+        function dismissAlert() {
+            const alertBox = document.getElementById('immersive-alert');
+            if (alertBox) alertBox.remove();
+        }
+
+        // Interactive Burger Thickness Simulator function
+        function simRender(val) {
+            const sliderText = document.getElementById('slider-val-text');
+            const satDisplay = document.getElementById('gauge-satisfaction');
+            const satBar = document.getElementById('gauge-sat-bar');
+            const fullDisplay = document.getElementById('gauge-fullness');
+            const fullBar = document.getElementById('gauge-full-bar');
+            const speechText = document.getElementById('sim-speech');
+            const pattyBlock = document.getElementById('sim-patty-block');
+            const renderer = document.getElementById('burger-renderer');
+
+            sliderText.innerText = `${val}mm`;
+
+            // Calculate heights in real time
+            const pixelHeight = 35 + (val - 6) * 4;
+            pattyBlock.style.height = `${pixelHeight}px`;
+
+            // Dynamic scale styling transform to show massive volume
+            renderer.style.transform = `scale(${1 + (val - 13) * 0.015})`;
+
+            let satValue = 0;
+            let fullnessStr = "";
+            let speechStr = "";
+
+            if (val <= 9) {
+                satValue = 50;
+                fullnessStr = "간편한 다이어트 스낵";
+                speechStr = "살짝 아쉬운 두께감! 조금 더 두툼하게 채워 든든하게 영양을 맞춤해보세요. 🧐";
+                pattyBlock.innerHTML = `<span class="text-[9px] bg-darkGray/60 px-2 py-0.5 rounded-full">통다리 슬림 패티</span>`;
+            } else if (val >= 10 && val <= 15) {
+                satValue = 95;
+                fullnessStr = "든든하고 완벽한 영양 한끼";
+                speechStr = "싸이버거 오리지널 정석 두께! 완벽한 비율의 겉바속촉 크리스피 육즙을 느껴보세요! 🍔🔥";
+                pattyBlock.innerHTML = `<span class="text-[10px] bg-darkGray/60 px-2 py-0.5 rounded-full">리얼 통닭다리살</span>`;
+            } else if (val >= 16 && val <= 21) {
+                satValue = 100;
+                fullnessStr = "손목이 뻐근해지는 무거운 포만감";
+                speechStr = "입이 작다면 조심하세요! 볼에 소스가 마구 묻어나는 압도적인 두께의 더블 스택 완성! 🤯";
+                pattyBlock.innerHTML = `<span class="text-[10px] bg-darkGray/60 px-2 py-0.5 rounded-full">더블 통닭다리살</span>`;
+            } else {
+                satValue = 100;
+                fullnessStr = "더 리얼 턱관절 해체 쇼";
+                speechStr = "도저히 한 입에 넣을 수 없는 공포의 탑 버거 등판! 가심비 지수의 한계를 돌파했습니다! 🦁👑";
+                pattyBlock.innerHTML = `<span class="text-[10px] bg-darkGray/60 px-2 py-0.5 rounded-full">자이언트 메가 패티</span>`;
+            }
+
+            satDisplay.innerText = `${satValue}%`;
+            satBar.style.width = `${satValue}%`;
+            fullDisplay.innerText = fullnessStr;
+
+            const fullPct = Math.min(((val - 6) / 19) * 100, 100);
+            fullBar.style.width = `${fullPct}%`;
+            speechText.innerText = `"${speechStr}"`;
+        }
+
+        // Store Finder Selection Logic
+        function selectStoreMap(storeId) {
+            const cards = document.querySelectorAll('.store-item-card');
+            cards.forEach(card => {
+                card.className = "store-item-card bg-charcoal/40 hover:bg-charcoal p-4 rounded-2xl border border-neutral-800 cursor-pointer transition-all-300";
+            });
+
+            const activeCard = document.getElementById(`card-store-${storeId}`);
+            if (activeCard) {
+                activeCard.className = "store-item-card bg-charcoal p-4 rounded-2xl border border-deepOrange-500/80 cursor-pointer transition-all-300";
+            }
+
+            // highlight map pins
+            const pins = ['gangnam', 'hongdae', 'seomyeon'];
+            pins.forEach(pin => {
+                const marker = document.getElementById(`pin-${pin}`);
+                if (pin === storeId) {
+                    marker.classList.remove('opacity-60', 'z-20');
+                    marker.classList.add('opacity-100', 'z-30', 'scale-110');
+                    marker.firstElementChild.className = "bg-deepOrange-500 text-white rounded-full p-3 shadow-2xl border-2 border-white cursor-pointer transition-transform";
+                } else {
+                    marker.classList.add('opacity-60', 'z-20');
+                    marker.classList.remove('opacity-100', 'z-30', 'scale-110');
+                    marker.firstElementChild.className = "bg-neutral-700 text-neutral-300 rounded-full p-2.5 shadow-lg cursor-pointer transition-transform";
+                }
+            });
+        }
+
+        // Map finder Search function
+        function triggerMapSearch() {
+            const query = document.getElementById('map-search-val').value.trim();
+            if (!query) {
+                triggerToast("검색어를 입력해 주세요.", false);
+                return;
+            }
+
+            if (query.includes("강남") || query.includes("서울")) {
+                selectStoreMap('gangnam');
+                triggerToast("가장 가까운 '맘스터치 강남대로점'이 검색되었습니다.");
+            } else if (query.includes("홍대") || query.includes("신촌") || query.includes("마포")) {
+                selectStoreMap('hongdae');
+                triggerToast("'맘스터치 홍대삼거리점' 매장이 조회되었습니다.");
+            } else if (query.includes("서면") || query.includes("부산")) {
+                selectStoreMap('seomyeon');
+                triggerToast("'맘스터치 부산 서면중앙점' 매장이 검색되었습니다.");
+            } else {
+                triggerToast("해당 지역에는 임시 파트너샵 부재로 강남대로점이 자동 매칭되었습니다.", false);
+                selectStoreMap('gangnam');
+            }
+        }
+
+        // Toast Notification System
+        function triggerToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-text');
+
+            text.innerText = message;
+            if (isSuccess) {
+                icon.className = "fa-solid fa-circle-check text-green-500 text-base";
+                toast.className = "fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-charcoal border-2 border-green-500/60 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 opacity-100 transition-all duration-300 text-xs";
+            } else {
+                icon.className = "fa-solid fa-triangle-exclamation text-deepOrange-500 text-base";
+                toast.className = "fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-charcoal border-2 border-deepOrange-500/60 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 opacity-100 transition-all duration-300 text-xs";
+            }
+
+            // auto-dismiss
+            setTimeout(() => {
+                toast.className = "fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-charcoal border border-deepOrange-500/50 text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 opacity-0 pointer-events-none transition-all duration-300 text-xs";
+            }, 3000);
+        }
+
+        function subscribeAlert() {
+            triggerToast("맘스터치 가맹 뉴스레터 구독이 정상 완료되었습니다! 🍔");
+        }
+    </script>
+</body>
+</html>
